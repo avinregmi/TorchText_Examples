@@ -49,3 +49,14 @@ The parameters of a `Field` specify how the data should be processed. We use the
 | ReversibleField	 | An extension of the field that allows reverse mapping of word ids to words |Text fields if you want to map the integers back to natural language (such as in the case of language modeling) |
 | NestedField | A field that takes processes non-tokenized text into a set of smaller fields |  Char-based models |
 | LabelField (New!) | A regular field with sequential=False and no <unk> token. |  Label fields in text classification. |
+
+
+### Dataset
+The fields know what to do when given raw data. Now, we need to tell the fields what data it should work on. This is where we use Datasets. There are various built-in Datasets in torchtext that handle common data formats. For csv/tsv files, the TabularDataset class is convenient. 
+
+| Name        | Description           | Use Case  |
+| ------------- |:-------------:| -----:|
+| TabularDataset      |Takes paths to csv/tsv files and json files or Python dictionaries as inputs. | Any problem that involves a label (or labels) for each piece of text |
+|  LanguageModelingDataset	 |Takes the path to a text file as input. |Language modeling |
+|  TranslationDataset | Takes a path and extensions to a file for each language.e.g. If the files are English: "hoge.en", French: "hoge.fr", path="hoge", exts=("en","fr") |  Translation |
+|  SequenceTaggingDataset |Takes a path to a file with the input sequence and output sequence separated by tabs.|  Sequence tagging |
