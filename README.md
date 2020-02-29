@@ -1,2 +1,51 @@
-# TorchText_Examples
-Examples on using torch text
+# TorchText Examples
+### Field
+One of the main concepts of TorchText is the `Field`. These define how your data should be processed. In our sentiment classification task the data consists of both the raw string of the review and the sentiment, either "pos" or "neg".
+
+The parameters of a `Field` specify how the data should be processed. We use the `TEXT` field to define how the review should be processed, and the `LABEL` field to process the sentiment. Our `TEXT` field has `tokenize='spacy'` as an argument. This defines that the "tokenization" (the act of splitting the string into discrete "tokens") should be done using the [spaCy](https://spacy.io) tokenizer. If no `tokenize` argument is passed, the default is simply splitting the string on spaces.
+
+`LABEL` is defined by a `LabelField`, a special subset of the `Field` class specifically used for handling labels.
+```
+    Field Attributes:
+        sequential: Whether the datatype represents sequential data. If False,
+            no tokenization is applied. Default: True.
+        use_vocab: Whether to use a Vocab object. If False, the data in this
+            field should already be numerical. Default: True.
+        init_token: A token that will be prepended to every example using this
+            field, or None for no initial token. Default: None.
+        eos_token: A token that will be appended to every example using this
+            field, or None for no end-of-sentence token. Default: None.
+        fix_length: A fixed length that all examples using this field will be
+            padded to, or None for flexible sequence lengths. Default: None.
+        tensor_type: The torch.Tensor class that represents a batch of examples
+            of this kind of data. Default: torch.LongTensor.
+        preprocessing: The Pipeline that will be applied to examples
+            using this field after tokenizing but before numericalizing. Many
+            Datasets replace this attribute with a custom preprocessor.
+            Default: None.
+        postprocessing: A Pipeline that will be applied to examples using
+            this field after numericalizing but before the numbers are turned
+            into a Tensor. The pipeline function takes the batch as a list,
+            the field's Vocab, and train (a bool).
+            Default: None.
+        lower: Whether to lowercase the text in this field. Default: False.
+        tokenize: The function used to tokenize strings using this field into
+            sequential examples. If "spacy", the SpaCy English tokenizer is
+            used. Default: str.split.
+        include_lengths: Whether to return a tuple of a padded minibatch and
+            a list containing the lengths of each examples, or just a padded
+            minibatch. Default: False.
+        batch_first: Whether to produce tensors with the batch dimension first.
+            Default: False.
+        pad_token: The string token used as padding. Default: "<pad>".
+        unk_token: The string token used to represent OOV words. Default: "<unk>".
+        pad_first: Do the padding of the sequence at the beginning. Default: False.
+```
+
+
+| Name        | Description           | Use Case  |
+| ------------- |:-------------:| -----:|
+| Field      | A regular field that defines preprocessing and postprocessing |  Non-text fields and text fields where you don't need to map integers back to words |
+| ReversibleField	 | An extension of the field that allows reverse mapping of word ids to words |Text fields if you want to map the integers back to natural language (such as in the case of language modeling) |
+| NestedField | A field that takes processes non-tokenized text into a set of smaller fields |  Char-based models |
+| LabelField (New!) | A regular field with sequential=False and no <unk> token. |  Label fields in text classification. |
