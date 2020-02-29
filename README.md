@@ -60,3 +60,12 @@ The fields know what to do when given raw data. Now, we need to tell the fields 
 |  LanguageModelingDataset	 |Takes the path to a text file as input. |Language modeling |
 |  TranslationDataset | Takes a path and extensions to a file for each language.e.g. If the files are English: "hoge.en", French: "hoge.fr", path="hoge", exts=("en","fr") |  Translation |
 |  SequenceTaggingDataset |Takes a path to a file with the input sequence and output sequence separated by tabs.|  Sequence tagging |
+
+### DataIterator
+The final step of preparing the data is creating the iterators. We iterate over these in the training/evaluation loop, and they return a batch of examples (indexed and converted into tensors) at each iteration.In torchvision and PyTorch, the processing and batching of data is handled by DataLoaders. For some reason, torchtext has renamed the objects that do the exact same thing to Iterators. The basic functionality is the same, but Iterators, as we will see, have some convenient functionality that is unique to NLP.
+
+| Name        | Description           | Use Case  |
+| ------------- |:-------------:| -----:|
+| Iterator      | Iterates over the data in the order of the dataset. |  Test data, or any other data where the order is important. |
+| BucketIterator | Buckets sequences of similar lengths together.	      |   Text classification, sequence tagging, etc. (use cases where the input is of variable length) |
+| BPTTIterator | An iterator built especially for language modeling that also generates the input sequence delayed by one timestep. It also varies the BPTT (backpropagation through time) length. This iterator deserves its own post, so I'll omit the details here. |    Language modeling |
