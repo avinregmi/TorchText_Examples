@@ -86,3 +86,19 @@ The final step of preparing the data is creating the iterators. We iterate over 
 | Iterator      | Iterates over the data in the order of the dataset. |  Test data, or any other data where the order is important. |
 | BucketIterator | Buckets sequences of similar lengths together.	      |   Text classification, sequence tagging, etc. (use cases where the input is of variable length) |
 | BPTTIterator | An iterator built especially for language modeling that also generates the input sequence delayed by one timestep. It also varies the BPTT (backpropagation through time) length. This iterator deserves its own post, so I'll omit the details here. |    Language modeling |
+
+#### BucketIterator Attributes
+```
+data.BucketIterator(
+    dataset,
+    batch_size,
+    sort_key=None,
+    device=None,
+    batch_size_fn=None,
+    train=True,
+    repeat=False,
+    shuffle=None,
+    sort=None,
+    sort_within_batch=None,
+)
+```
