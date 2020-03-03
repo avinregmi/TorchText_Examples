@@ -1,4 +1,21 @@
 # TorchText Examples
+### Getting Started
+
+To install PyTorch, see installation instructions on the [PyTorch website](pytorch.org).
+
+To install TorchText:
+
+``` bash
+pip install torchtext
+```
+
+We'll also make use of spaCy to tokenize our data. To install spaCy, follow the instructions [here](https://spacy.io/usage/) making sure to install both the English and German models or any language with:
+
+``` bash
+python -m spacy download en
+python -m spacy download de
+```
+
 ### Field
 One of the main concepts of TorchText is the `Field`. These define how your data should be processed. In our sentiment classification task the data consists of both the raw string of the review and the sentiment, either "pos" or "neg".
 
