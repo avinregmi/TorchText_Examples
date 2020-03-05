@@ -102,3 +102,4 @@ data.BucketIterator(
     sort_within_batch=None,
 )
 ```
+In order to sort all tensors within a batch by their lengths, we set `sort_within_batch = True`.
