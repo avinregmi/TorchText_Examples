@@ -103,3 +103,35 @@ data.BucketIterator(
 )
 ```
 In order to sort all tensors within a batch by their lengths, we set `sort_within_batch = True`.
+
+
+
+### build_vocab():
+
+**Arguments:**
+
+            counter: collections.Counter object holding the frequencies of
+                each value found in the data.
+                
+            max_size: The maximum size of the vocabulary, or None for no
+                maximum. Default: None.
+                
+            min_freq: The minimum frequency needed to include a token in the
+                vocabulary. Values less than 1 will be set to 1. Default: 1.
+                
+            specials: The list of special tokens (e.g., padding or eos) that
+                will be prepended to the vocabulary. Default: ['<unk'>, '<pad>']
+                
+            vectors: One of either the available pretrained vectors
+                or custom pretrained vectors (see Vocab.load_vectors);
+                or a list of aforementioned vectors
+                
+            unk_init (callback): by default, initialize out-of-vocabulary word vectors
+                to zero vectors; can be any function that takes in a Tensor and
+                returns a Tensor of the same size. Default: torch.Tensor.zero_
+                
+            vectors_cache: directory for cached vectors. Default: '.vector_cache'
+            
+            specials_first: Whether to add special tokens into the vocabulary at first.
+                If it is False, they are added into the vocabulary at last.
+                Default: True.
